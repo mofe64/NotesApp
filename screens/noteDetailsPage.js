@@ -1,6 +1,9 @@
 import React from 'react';
-import { View, Text, StyleSheet, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView ,TouchableWithoutFeedback} from 'react-native';
 import notes from '../data/notesStore';
+import { Ionicons} from '@expo/vector-icons';
+
+
 
 const getNotes = (id) => {
    return notes.find(note => note.id === id)
@@ -23,6 +26,16 @@ const NoteDetailsScreen = function ({ navigation }) {
         </View>
     )
 }
+NoteDetailsScreen.navigationOptions = navigationData => {
+    const noteId = navigationData.navigation.state.params.noteId;
+    const note = getNotes(noteId)
+    return {
+        headerTitle: note.title,
+        headerRight: () => <View style={styles.editIconContainer}>
+            <Ionicons name='create-outline' size={25} color='blue' onPress={()=> console.log("pressed") }/>
+            </View>
+    }
+}
 
 const styles = StyleSheet.create({
     noteContainer: {
@@ -43,6 +56,9 @@ const styles = StyleSheet.create({
     },
     noteContent: {
         fontSize: 25,  
+    },
+    editIconContainer: {
+        paddingHorizontal: 20
     }
 
 
