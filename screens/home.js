@@ -1,15 +1,25 @@
 import React from 'react';
-import { View, Text, StyleSheet,FlatList, TouchableNativeFeedback, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet,FlatList, TouchableOpacity } from 'react-native';
 import notes from '../data/notesStore';
 import Colors from '../constants/colors';
 
+const generateRandomNumber = () => Math.floor(Math.random() * Colors.colorsArray.length);
+let previousArrayPosition = -1
+const renderItem = (itemData, navigation) => {
+    let arrayPosition = generateRandomNumber();
+    if (arrayPosition === previousArrayPosition) {
+        arrayPosition = generateRandomNumber()
+    }
+    previousArrayPosition = arrayPosition
+    
 
-const renderItem = itemData => {
-    let arrayPosition = Math.floor(Math.random() * Colors.colorsArray.length)
     let gridColor = Colors.colorsArray[arrayPosition]
     return (
-        <TouchableOpacity style={[styles.gridItem, {backgroundColor: gridColor}]}
-            onPress={()=> console.log(itemData.item.title)}>
+        <TouchableOpacity style={[styles.gridItem, { backgroundColor: gridColor }]}
+            onPress={() => navigation.navigate( 'NoteDetails',{
+                noteId: itemData.item.id,
+            })
+            }>
             <View>
                 <Text
                     style={styles.gridItemText}
@@ -26,11 +36,11 @@ const renderItem = itemData => {
         </TouchableOpacity>
     )
 }
-const HomeScreen = function () {
+const HomeScreen = function (props) {
     return (
         <FlatList
             data={notes}
-            renderItem={renderItem}
+            renderItem={(item) => renderItem(item, props.navigation)}
             numColumns={2}
         />
     )
