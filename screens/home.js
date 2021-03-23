@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet,FlatList, TouchableOpacity } from 'react-native';
 import notes from '../data/notesStore';
 import Colors from '../constants/colors';
+import { useState } from 'react';
 
 const generateRandomNumber = () => Math.floor(Math.random() * Colors.colorsArray.length);
 let previousArrayPosition = -1
@@ -37,9 +38,11 @@ const renderItem = (itemData, navigation) => {
     )
 }
 const HomeScreen = function (props) {
+    const [appNotes, setAppNotes] = useState(notes)
+    console.log("Rendering.....")
     return (
         <FlatList
-            data={notes}
+            data={appNotes}
             renderItem={(item) => renderItem(item, props.navigation)}
             numColumns={2}
         />

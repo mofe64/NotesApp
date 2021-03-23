@@ -32,7 +32,11 @@ NoteDetailsScreen.navigationOptions = navigationData => {
     return {
         headerTitle: note.title,
         headerRight: () => <View style={styles.editIconContainer}>
-            <Ionicons name='create-outline' size={25} color='blue' onPress={()=> console.log("pressed") }/>
+            <Ionicons name='create-outline' size={25} color='blue' onPress={() => {
+                navigationData.navigation.navigate('EditNote', {
+                    note
+                })
+            } }/>
             </View>
     }
 }
