@@ -1,8 +1,10 @@
 import React from 'react';
-import { View, Text, StyleSheet,FlatList, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet,FlatList, TouchableOpacity,TouchableNativeFeedback } from 'react-native';
 import notes from '../data/notesStore';
 import Colors from '../constants/colors';
 import { useState } from 'react';
+import { Ionicons } from '@expo/vector-icons';
+import FAB from 'react-native-fab';
 
 const generateRandomNumber = () => Math.floor(Math.random() * Colors.colorsArray.length);
 let previousArrayPosition = -1
@@ -41,15 +43,31 @@ const HomeScreen = function (props) {
     const [appNotes, setAppNotes] = useState(notes)
     console.log("Rendering.....")
     return (
-        <FlatList
+        <View style={styles.container}>
+            <FlatList
             data={appNotes}
             renderItem={(item) => renderItem(item, props.navigation)}
             numColumns={2}
-        />
+            />
+            <FAB
+                buttonColor='blue'
+                iconTextColor='white'
+                visible={true}
+                iconTextComponent={<Ionicons name='add' size={25} />}
+                onClickAction={()=>console.log("Create note") }/>
+            {/* <View style={styles.fab}>
+                <Ionicons name='add' size={25} color/>
+            </View> */}
+        </View>
+        
+        
     )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex:1
+    },
     gridItem: {
         marginHorizontal: 10,
         marginVertical: 10,
@@ -81,6 +99,19 @@ const styles = StyleSheet.create({
         fontWeight: '700',
         fontSize: 20
     },
+    fab: {
+        position: 'absolute',
+        width: 60,
+        height: 60,
+        borderRadius: 30,
+        bottom: 10,
+        right: 10,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'blue',
+        borderWidth: 1,
+        borderColor: 'rgba(0,0,0,0.2)',
+    }
    
 
 })
