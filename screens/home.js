@@ -41,7 +41,6 @@ const renderItem = (itemData, navigation) => {
 }
 const HomeScreen = function (props) {
     const [appNotes, setAppNotes] = useState(notes)
-    console.log("Rendering.....")
     return (
         <View style={styles.container}>
             <FlatList
@@ -54,14 +53,12 @@ const HomeScreen = function (props) {
                 iconTextColor='white'
                 visible={true}
                 iconTextComponent={<Ionicons name='add' size={25} />}
-                onClickAction={()=>console.log("Create note") }/>
-            {/* <View style={styles.fab}>
-                <Ionicons name='add' size={25} color/>
-            </View> */}
+                onClickAction={()=>{ props.navigation.navigate('NewNote')} }/>
         </View>
-        
-        
     )
+}
+HomeScreen.navigationOptions = {
+    headerLeft: () => null
 }
 
 const styles = StyleSheet.create({

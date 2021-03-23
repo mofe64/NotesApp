@@ -6,12 +6,14 @@ import CategoryScreen from '../screens/categegory';
 import RecentlyDeletedScreen from '../screens/recentlyDeleted';
 import NoteDetailsScreen from '../screens/noteDetailsPage';
 import EditNotesScreen from '../screens/editNote';
+import NewNoteScreen from '../screens/newNote';
 import { createAppContainer } from 'react-navigation';
 import { Ionicons} from '@expo/vector-icons';
 const NotesHomeNavigator = createStackNavigator({
     Home:  HomeScreen,
     NoteDetails: NoteDetailsScreen,
-    EditNote: EditNotesScreen
+    EditNote: EditNotesScreen,
+    NewNote: NewNoteScreen,
 })
 
 const NotesTabNavigator = createBottomTabNavigator({
